@@ -1,0 +1,123 @@
+#include<stdio.h>
+#include<conio.h>
+#include<alloc.h>
+#include<process.h>
+# define NULL 0
+void sec_max();
+void sort();
+void print_rev(struct node *);
+struct node
+{
+ int data;
+ struct node *link;
+}*start,*tmp,*new_node,*tmp2;
+void main()
+{
+ int n,ch;
+ clrscr(;
+ printf(" Enter number of nodes in the list");
+ scanf("%d",&n);
+ start=NULL;
+ while(n>0)
+ {
+  new_node=(struct node *)malloc(sizeof(start));
+  new_node->link=NULL;
+  printf("\n enter value of new node");
+  scanf("%d",&new_node->data);
+  if(start==NULL)
+  {
+   start=new_node;
+  }
+  else
+  {
+   tmp=start;
+   while(tmp->link!=NULL)
+   {
+    tmp=tmp->link;
+   }
+   tmp->link=new_node;
+  }
+  n--;
+ }
+  printf("\n linked list is");
+  tmp=start;
+  while(tmp!=NULL)
+  {
+   printf("\n %d",tmp->data);
+   tmp=tmp->link;
+  }
+ printf("\n MENU: \n1.second maximum node \n2.reverse traversal in list \n3.selectin sort \n4.exit");
+ while(1)
+ {
+  printf("\n Enter choice");
+  scanf("%d",&ch);
+  switch(ch)
+ {
+  case 1:sec_max();
+	 break;
+  case 2:print_rev(start);
+	 break;
+  case 3:sort();
+	 break;
+  case 4:exit(0);
+ }
+}
+ getch();
+}
+void sec_max()
+{
+int max=-32768;
+int smax=-32768;
+tmp=start;
+while(tmp!=NULL)
+{
+ if(max<tmp->data)
+ {
+  smax=max;
+  max=tmp->data;
+ }
+ if(smax<tmp->data && max>tmp->data)
+ {
+ smax=tmp->data;
+ }
+ tmp=tmp->link;
+}
+printf("\n second maximum nde is:%d",smax);
+}
+ void print_rev(struct node *tmp)
+ {
+  if(tmp==NULL)
+   return;
+  else
+  {
+   print_rev(tmp->link);
+   printf("\n %d",tmp->data);
+  }
+}
+void sort()
+{
+int t;
+ tmp=start;
+ while(tmp!=NULL)
+ {
+  tmp2=tmp->link;
+  while(tmp2!=NULL)
+  {
+   if(tmp2->data<tmp->data)
+   {
+    t=tmp->data;
+    tmp->data=tmp2->data;
+    tmp2->data=t;
+   }
+   tmp2=tmp2->link;
+  }
+  tmp=tmp->link;
+ }
+ printf("\nsortd linked list is");
+  tmp=start;
+  while(tmp!=NULL)
+  {
+   printf("\n %d",tmp->data);
+   tmp=tmp->link;
+  }
+}
