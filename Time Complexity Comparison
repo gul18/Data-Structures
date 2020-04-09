@@ -1,0 +1,80 @@
+#include<stdio.h>
+#include<conio.h>
+#include<time.h>
+#include<stdlib.h>
+#include<dos.h>
+void linear(int);
+void binary(int);
+int arr[4000];
+void main() {
+clrscr();
+int i,ch,num;
+time_t beg,end;
+double tt;
+for(i=0;i<=4000;i++)
+{
+arr[i]=i;
+}
+printf("\n enter the no to be searched");
+scanf("%d",&num);
+while(1)
+{
+printf("\n choose an option: \n1.linear \n2.binary \n3.exit");
+scanf("%d",&ch);
+	switch(ch)
+	{
+	case 1:
+	beg=clock();
+	linear(num);
+	end=clock();
+	break;
+	case 2:
+	beg=clock();
+	binary(num);
+	end=clock();
+	break;
+	case 3:exit(0);
+	break;
+	default:printf("\n wrong option");
+	}
+
+tt=(double) ((end-beg)/(CLOCKS_PER_SEC));
+printf("\ntotal execution time=%lf",tt);
+}
+getch();
+}
+void linear(int n)
+{
+int j;
+for(j=0;j<4000;j++)
+{
+delay(1);
+if(arr[j]==n)
+printf("\nnumber %d found at position %d",n,j);
+}
+}
+
+void binary(int n)
+{
+int l,h,mid,c=0;
+l=0;
+h=3999;
+while(h>=l)
+{
+delay(10);
+mid=((l+h)/2);
+if(arr[mid]==n)
+{
+c=1;
+break;
+}
+else if(n<arr[mid])
+h=mid-1;
+else
+l=mid+1;
+}
+if(c==1)
+printf("\nfound at position %d",mid);
+else
+printf("\nnot found");
+}
