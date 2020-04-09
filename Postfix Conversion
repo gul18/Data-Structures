@@ -1,0 +1,117 @@
+#include<stdio.h>
+#include<conio.h>
+#include<string.h>
+#include<ctype.h>
+char st[10];
+int top=-1;
+void print()
+{
+int i;
+for(i=0;i<10;i++)
+{
+printf("%c",st[i]);
+}
+}
+void push(char st[],char val)
+{
+	if(top==10)
+	   printf("\nstack is full");
+	else
+	{
+top++;
+st[top]=val;
+}
+}
+char pop(char st[])
+{
+char val;
+
+if(top==-1)
+printf("stack is empty");
+else
+	{
+		val=st[top];
+		top--;
+	}
+return val;
+}
+int getpriority(char op)
+{
+	if(op=='/'||op=='+'||op=='-')
+		return 1;
+
+else if(op=='+'||op=='-')
+		return 0;
+
+
+}
+void infixtopostfix(char source[],char target[])
+{
+
+	int i=0,j=0;
+	char temp;
+	strcpy(target,"");
+	while(source[i]!='\0')
+	{
+		if(source[i]=='(')
+		{
+		push(st,source[i]);
+		i++;
+		}
+		else if(source[i]==')')
+		{
+			while((top!=-1)&&(st[top]!='('))
+			{
+			target[j]=pop(st);
+j++;
+}
+if(top==-1)
+{
+printf("incorrect exp");
+//exit(1);
+}
+
+temp=pop(st);
+i++;
+}
+else if(isdigit(source[i])||isalpha(source[i]))
+		{
+			target[j]=source[i];
+			j++;
+			i++;
+		}
+		else if(source[i]=='+'||source[i]=='-'||source[i]=='*'||source[i]=='/'||source[i]=='%')
+		{
+while((top!=-1)&&(st[top]!='(')&&(getpriority(st[top])>=(getpriority(source[i]))))
+{
+target[j]=pop(st);
+j++;
+}
+push(st,source[i]);
+i++;
+}
+else
+{
+printf("\n incorrect element");
+}
+print();
+}
+while((top!=-1)&&(st[top]!='('))
+{
+target[j]=pop(st);
+j++;
+}
+target[j]='\0';
+}
+int main()
+{
+char infix[10],postfix[10];
+printf("\t\nenter an expression\n");
+gets(infix);
+strcpy(postfix,"");
+infixtopostfix(infix,postfix);
+printf("\t\nthe postfix exp is\n");
+puts(postfix);
+getch();
+return 0;
+}
